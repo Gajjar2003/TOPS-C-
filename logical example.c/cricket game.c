@@ -67,6 +67,6 @@ int main()
 
     printf("\nThank you for playing the cricket game!\n");
 
-    return 0;
+    
 }
 
