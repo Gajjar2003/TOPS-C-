@@ -1,0 +1,317 @@
+/*CREATE TABLE users ( user_id INT PRIMARY KEY, name VARCHAR(50) );
+ CREATE TABLE expenses ( expense_id INT PRIMARY KEY, user_id INT, amount DECIMAL(10,2), FOREIGN KEY (user_id) REFERENCES users(user_id) );
+ 
+ CREATE TABLE expenses ( expense_id INT PRIMARY KEY, amount DECIMAL(10,2) NOT NULL, category VARCHAR(50) NOT NULL, expense_date DATE );
+ 
+ SELECT category, SUM(amount) AS total_expense FROM expenses GROUP BY category;
+ 
+ START TRANSACTION; INSERT INTO expenses VALUES (1, 5000, 'Food'); ROLLBACK;
+ 
+ CREATE VIEW monthly_expenses AS
+
+SELECT category,
+SUM(amount) AS total
+
+FROM expenses
+
+GROUP BY category;
+CREATE TABLE expenses (
+
+    expense_id INT PRIMARY KEY,
+
+    user_id INT,
+
+    amount DECIMAL(10,2)
+);
+
+SELECT * FROM monthly_expenses;
+
+CREATE TRIGGER update_balance AFTER INSERT ON expenses FOR EACH ROW UPDATE balance SET total = total - NEW.amount;
+DROP TABLE users;*/
+
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+/*USE 08aug_python;
+CREATE TABLE users ( user_id INT PRIMARY KEY, name VARCHAR(50), email VARCHAR(100), created_at DATE );
+CREATE TABLE categories ( category_id INT PRIMARY KEY, category_name VARCHAR(50) );
+CREATE TABLE expenses ( expense_id INT PRIMARY KEY, user_id INT, category_id INT, amount DECIMAL(10,2), expense_date DATE, FOREIGN KEY (user_id) REFERENCES users(user_id), FOREIGN KEY (category_id) REFERENCES categories(category_id) );
+INSERT INTO users
+VALUES
+(3, 'Jenil', 'jenil@gmail.com', '2026-05-29'),
+
+(4, 'Rahul', 'rahul@gmail.com', '2026-05-29');
+INSERT INTO categories VALUES (101, 'Food'), (102, 'Travel'), (103, 'Shopping');
+INSERT INTO expenses VALUES (1, 1, 101, 5000, '2026-05-29'), (2, 1, 102, 3000, '2026-05-29'), (3, 2, 103, 7000, '2026-05-29');
+SELECT * FROM users;
+SELECT * FROM categories;
+SELECT * FROM expenses;
+SELECT c.category_name, SUM(e.amount) AS total_expense FROM expenses e JOIN categories c ON e.category_id = c.category_id GROUP BY c.category_name;
+SELECT u.name, SUM(e.amount) AS total_expense FROM expenses e JOIN users u ON e.user_id = u.user_id GROUP BY u.name;
+SELECT * FROM expenses WHERE amount > 4000;
+SELECT * FROM expenses ORDER BY amount DESC;
+UPDATE expenses SET amount = 6000 WHERE expense_id = 1;
+DELETE FROM expenses WHERE expense_id = 2;
+DROP TABLE users;
+SHOW TABLES;
+CREATE TABLE expenses (
+
+    expense_id INT PRIMARY KEY,
+
+    user_id INT,
+
+    category_id INT,
+
+    amount DECIMAL(10,2),
+
+    expense_date DATE,
+
+    FOREIGN KEY (user_id)
+    REFERENCES users(user_id),
+
+    FOREIGN KEY (category_id)
+    REFERENCES categories(category_id)
+);*/
+
+/*--------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*INSERT INTO users
+VALUES
+(11, 'Jenil', 'jenil@gmail.com', '2026-05-29'),
+
+(21, 'Rahul', 'rahul@gmail.com', '2026-05-29'),
+
+(31, 'Amit', 'amit@gmail.com', '2026-05-29'),
+
+(41, 'Priya', 'priya@gmail.com', '2026-05-29'),
+
+(15, 'Neha', 'neha@gmail.com', '2026-05-29');
+
+INSERT INTO categories VALUES (1011, 'Food'), (1012, 'Rent'), (1013, 'Entertainment');
+
+INSERT INTO expenses VALUES (1, 1, 101, 500, '2026-05-01'), (2, 1, 102, 7000, '2026-05-02'), (3, 2, 103, 1200, '2026-05-03'), (4, 2, 101, 800, '2026-05-04'), (5, 3, 102, 6500, '2026-05-05'), (6, 3, 103, 1500, '2026-05-06'), (7, 4, 101, 400, '2026-05-07'), (8, 4, 102, 7200, '2026-05-08'), (9, 5, 103, 1800, '2026-05-09'), (10, 5, 101, 600, '2026-05-10');
+UPDATE expenses SET amount = 900 WHERE expense_id = 1;
+DELETE FROM expenses WHERE amount < 500;
+SELECT e.expense_date, e.amount, u.name, c.category_name FROM expenses e INNER JOIN users u ON e.user_id = u.user_id INNER JOIN categories c ON e.category_id = c.category_id;
+SELECT c.category_name, SUM(e.amount) AS total_expense FROM expenses e INNER JOIN categories c ON e.category_id = c.category_id GROUP BY c.category_name;
+SELECT u.name, SUM(e.amount) AS total_spending FROM expenses e INNER JOIN users u ON e.user_id = u.user_id GROUP BY u.name ORDER BY total_spending DESC;
+
+CREATE VIEW ActiveUsersView AS
+
+SELECT
+u.name,
+u.email
+
+FROM users u
+
+INNER JOIN expenses e
+ON u.user_id = e.user_id
+
+GROUP BY u.user_id, u.name, u.email
+
+HAVING COUNT(e.expense_id) > 5;
+SELECT * FROM ActiveUsersView;*/
+
+/*---------------------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+# Correct Full SQL Code – Expense Tracker DB
+
+
+USE 08aug_python;
+
+
+
+CREATE TABLE jenil (
+
+    user_id INT PRIMARY KEY,
+
+    name VARCHAR(50),
+
+    email VARCHAR(100),
+
+    created_at DATE
+);
+
+CREATE TABLE categories1 (
+
+    category_id INT PRIMARY KEY,
+
+    category_name VARCHAR(50)
+);
+
+CREATE TABLE expenses2 (
+
+    expense_id INT PRIMARY KEY,
+
+    user_id INT,
+
+    category_id INT,
+
+    amount DECIMAL(10,2),
+
+    expense_date DATE,
+
+    FOREIGN KEY (user_id)
+    REFERENCES jenil(user_id),
+
+    FOREIGN KEY (category_id)
+    REFERENCES categories1(category_id)
+);
+
+
+
+INSERT INTO jenil
+VALUES
+
+(1, 'Jenil', 'jenil@gmail.com', '2026-05-29'),
+
+(2, 'Rahul', 'rahul@gmail.com', '2026-05-29'),
+
+(3, 'Amit', 'amit@gmail.com', '2026-05-29');
+
+INSERT INTO categories1
+VALUES
+
+(101, 'Food'),
+
+(102, 'Rent'),
+
+(103, 'Entertainment');
+
+INSERT INTO expenses2
+VALUES
+
+(1, 2, 101, 500, '2026-05-01'),
+
+(2, 2, 102, 7000, '2026-05-02'),
+
+(3, 2, 103, 1200, '2026-05-03'),
+
+(4, 2, 101, 800, '2026-05-04'),
+
+(5, 3, 102, 6500, '2026-05-05');
+
+
+
+
+INSERT INTO expenses2
+VALUES
+(6, 2, 103, 1500, '2026-05-06');
+
+
+SELECT * FROM expenses2;
+
+
+UPDATE expenses2
+SET amount = 900
+WHERE expense_id = 4;
+
+DELETE FROM expenses2
+WHERE expense_id = 1;
+
+
+
+SELECT
+e.expense_date,
+e.amount,
+u.name,
+c.category_name
+
+FROM expenses2 e
+
+INNER JOIN jenil u
+ON e.user_id = u.user_id
+
+INNER JOIN categories1 c
+ON e.category_id = c.category_id;
+
+-- =========================
+-- GROUP BY QUERY
+-- =========================
+
+SELECT
+c.category_name,
+SUM(e.amount) AS total_expense
+
+FROM expenses2 e
+
+INNER JOIN categories1 c
+ON e.category_id = c.category_id
+
+GROUP BY c.category_name;
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE MonthlyExpense(IN uid INT)
+
+BEGIN
+
+    SELECT
+    u.name,
+    SUM(e.amount) AS monthly_total
+
+    FROM expenses2 e
+
+    INNER JOIN jenil u
+    ON e.user_id = u.user_id
+
+    WHERE e.user_id = uid
+
+    GROUP BY u.name;
+
+END //
+
+DELIMITER ;
+
+
+CALL MonthlyExpense(2);
+
+
+
+START TRANSACTION;
+
+INSERT INTO expenses2
+VALUES
+(7, 1, 101, 2000, '2026-05-10');
+
+COMMIT;
+
+
+
+START TRANSACTION;
+
+INSERT INTO expenses2
+VALUES
+(8, 2, 102, 5000, '2026-05-12');
+
+ROLLBACK;
+
+
+CREATE VIEW ActiveUsersView1 AS
+
+SELECT
+u.name,
+u.email
+
+FROM jenil u
+
+INNER JOIN expenses2 e
+ON u.user_id = e.user_id
+
+GROUP BY u.user_id, u.name, u.email
+
+HAVING COUNT(e.expense_id) > 1;
+
+
+
+SELECT * FROM ActiveUsersView1;
+
+
+
+
